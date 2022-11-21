@@ -44,8 +44,21 @@ export const group = {
   end: groupEnd,
 };
 
+/**
+ * Clear stdout.
+ */
 export const clear: Logger = () => {
+  /**
+   * Clear the console.
+   */
   logCall("clear");
+  /**
+   * Flush stdout.
+   */
+  process.stdout.write("\u001b[3J\u001b[2J\u001b[1J");
+  /**
+   * Log an empty line.
+   */
   logCall("log");
 };
 
