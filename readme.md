@@ -1,6 +1,6 @@
-# Console styles for Bun
+# Console styles
 
-Type-safe wrapper around `ansi-styles`, similar to `chalk`.
+Type-safe wrapper around `ansi-styles`, similar to `chalk`. Weighs 4kB.
 
 ### Example
 
