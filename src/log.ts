@@ -27,6 +27,10 @@ export const log: Logger = (message, styles, padding) => {
   logCall("log", style(message, styles, padding));
 };
 
+export const success: Logger = (message, styles = [], padding) => {
+  logCall("log", style(message, ["green", ...styles], padding));
+};
+
 export const error: Logger = (message, styles = [], padding) => {
   logCall("error", style(message, ["red", ...styles], padding));
 };
