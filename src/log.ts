@@ -2,50 +2,68 @@
 import { style } from "./style";
 import { LogStyles, PaddingOptions } from "./types";
 
-/**
- * Styled `console.log`.
- */
-export const log = (
+type LogType = "log" | "clear" | "group" | "groupEnd" | "info" | "warn" | "error" | "debug";
+type Logger = (
   message?: string,
-  styles: LogStyles[] = [],
+  styles?: LogStyles[],
   padding?: PaddingOptions
+) => void;
+
+const logCall = (
+  type: LogType,
+  raw?: string,
 ) => {
-  console.log(style(message, styles, padding));
-};
+  const logType = console[type];
 
-/**
- * Styled `console.error`.
- */
-export const error = (
-  message?: string,
-  styles: LogStyles[] = [],
-  padding?: PaddingOptions
-) => {
-  console.error(style(message, styles, padding));
-};
-
-/**
- * Styled `console.group`. Creates a bolded heading.
- */
-export const group = {
-  start: (
-    message?: string,
-    styles: LogStyles[] = [],
-    padding?: PaddingOptions
-  ) => {
-    if (typeof message === "undefined") {
-      console.group();
-    } else {
-      console.group(style(message, ["bold", ...styles], padding));
-    }
-  },
-
-  end: () => {
-    console.groupEnd();
+  if (typeof raw === "undefined") {
+    logType();
+    return;
   }
+
+  logType(raw);
 };
 
-/**
- * Regular old `console.clear`.
- */
-export const clear = () => console.clear();
+export const log: Logger = (message, styles, padding) => {
+  logCall("log", style(message, styles, padding));
+};
+
+export const error: Logger = (message, styles = [], padding) => {
+  logCall("error", style(message, ["red", ...styles], padding));
+};
+
+const groupStart: Logger = (message, styles = [], padding) => {
+  logCall("group", style(message, ["bold", ...styles], padding));
+};
+
+const groupEnd: Logger = () => {
+  logCall("groupEnd");
+};
+
+export const group = {
+  start: groupStart,
+  end: groupEnd,
+};
+
+export const clear: Logger = () => logCall("clear");
+
+export const info: Logger = (message, styles, padding) => {
+  logCall("info", style(message, styles, padding));
+};
+
+export const warn: Logger = (message, styles, padding) => {
+  logCall("warn", style(message, styles, padding));
+};
+
+export const debug: Logger = (message, styles, padding) => {
+  logCall("debug", style(message, styles, padding));
+};
+
+export default {
+  log,
+  error,
+  group,
+  clear,
+  info,
+  warn,
+  debug,
+};
