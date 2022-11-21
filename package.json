@@ -1,28 +1,42 @@
 {
-  "name": "bun-style",
+  "name": "@tsmodule/styles",
   "license": "MIT",
   "type": "module",
-  "types": "src/index.ts",
-  "version": "0.3.0",
+  "types": "dist/index.d.ts",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ctjlewis/bun-style.git"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./*": "./src/*/index.ts"
+    "./package.json": "./package.json",
+    ".": "./dist/index.js",
+    "./*": "./dist/*/index.js"
   },
   "files": [
-    "tsconfig.json",
-    "bun.lockb",
-    "node_modules.bun",
-    "assets/**/*",
-    "src/**/*"
+    "dist"
   ],
-  "devDependencies": {
-    "bun-types": "latest"
+  "scripts": {
+    "dev": "tsmodule dev",
+    "build": "tsmodule build",
+    "test": "tsmodule test/index.test.ts",
+    "pretest": "tsmodule build",
+    "prepublishOnly": "yarn test",
+    "lint": "eslint src --fix"
   },
-  "dependencies": {
-    "ansi-styles": "^6.1.0"
+  "devDependencies": {
+    "@tsmodule/tsmodule": "^40.19.0",
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
+    "ava": "^5.1.0",
+    "bun-types": "latest",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {},
+  "platform": "node",
+  "engines": {
+    "node": ">=14"
   }
 }
