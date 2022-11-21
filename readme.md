@@ -8,7 +8,7 @@ You can provide a single style as a string, or multiple as an array of strings
 to avoid callback hell common with chalk.
 
 ```ts
-import { style } from "@tsmodule/styles";
+import { style } from "@tsmodule/log";
 
 console.log(style("Hello world!", ["green", "bold"]))
 ```
@@ -16,7 +16,7 @@ console.log(style("Hello world!", ["green", "bold"]))
 Also includes a `styleLog()` utility, which adds sensible spacing by default:
 
 ```ts
-import { styleLog } from "@tsmodule/styles";
+import { styleLog } from "@tsmodule/log";
 
 console.log("");
 styleLog("Styles testing! ", ["white", "bold"])
