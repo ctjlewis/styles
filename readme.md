@@ -35,4 +35,4 @@ log("Group 2 log 2", ["italic"]);
 group.end();
 ```
 
-![](https://github.com/tsmodule/log/blob/master/assets/example.png?raw=true)
+![](https://github.com/tsmodule/log/blob/master/example.png?raw=true)
