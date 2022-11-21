@@ -33,7 +33,11 @@ export const group = {
     styles: LogStyles[] = [],
     padding?: PaddingOptions
   ) => {
-    console.group(style(message, ["bold", ...styles], padding));
+    if (typeof message === "undefined") {
+      console.group();
+    } else {
+      console.group(style(message, ["bold", ...styles], padding));
+    }
   },
 
   end: () => {
