@@ -18,21 +18,21 @@ Also includes `log()` and `error()` proxies for `console.log` and
 `paddingOptions` arg) and allow for easier styling:
 
 ```ts
-import { log } from "@tsmodule/log";
+import { group, log } from "@tsmodule/log";
 
 log("Styles testing! ", ["white", "bold"]);
 log("Running tests...", ["bold", "underline", "grey"]);
 log("✓ 10 tests passed", ["green"]);
 
-/**
- * Equivalent to:
- */
-// console.log(
-//   style("Running tests... ", ["bold", "underline", "grey"]),
-//   "\n\n ",
-//   style("✓ 10 tests passed", ["green"]),
-//   "\n\n",
-// );
+group.start("Group 1");
+log("Group 1 log 1", ["blue"]);
+log("Group 1 log 2", ["blue"]);
+group.end();
+
+group.start("Group 2", ["red"]);
+log("Group 2 log 1", ["italic"]);
+log("Group 2 log 2", ["italic"]);
+group.end();
 ```
 
-![](/assets/example.png)
+![](https://github.com/tsmodule/log/blob/master/assets/example.png?raw=true)
