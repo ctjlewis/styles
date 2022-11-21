@@ -13,21 +13,21 @@ import { style } from "@tsmodule/log";
 console.log(style("Hello world!", ["green", "bold"]))
 ```
 
-Also includes a `styleLog()` utility, which adds sensible spacing by default:
+Also includes `log()` and `error()` proxies for `console.log` and
+`console.error`, which add sensible spacing by default (can override via last
+`paddingOptions` arg) and allow for easier styling:
 
 ```ts
-import { styleLog } from "@tsmodule/log";
+import { log } from "@tsmodule/log";
 
-console.log("");
-styleLog("Styles testing! ", ["white", "bold"])
-styleLog("Running tests...", ["bold", "underline", "grey"])
-styleLog("✓ 10 tests passed", ["green"])
+log("Styles testing! ", ["white", "bold"]);
+log("Running tests...", ["bold", "underline", "grey"]);
+log("✓ 10 tests passed", ["green"]);
 
 /**
  * Equivalent to:
  */
 // console.log(
-//   "\n\n ",
 //   style("Running tests... ", ["bold", "underline", "grey"]),
 //   "\n\n ",
 //   style("✓ 10 tests passed", ["green"]),
