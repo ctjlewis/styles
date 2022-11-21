@@ -9,13 +9,17 @@ import { LogStyles, PaddingOptions } from "./types";
  * applied.
  */
 export const style = (
-  message: string,
+  message?: string,
   styles?: LogStyles[],
   { indent, newlines }: PaddingOptions = {
-    indent: 2,
+    indent: message ? 2 : 0,
     newlines: message ? 1 : 0
   }
 ) => {
+  if (typeof message === "undefined") {
+    return undefined;
+  }
+
   /**
    * If styles are provided and stdout is TTY, then apply styles.
    */
