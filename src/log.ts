@@ -44,7 +44,10 @@ export const group = {
   end: groupEnd,
 };
 
-export const clear: Logger = () => logCall("clear");
+export const clear: Logger = () => {
+  logCall("clear");
+  logCall("log");
+};
 
 export const info: Logger = (message, styles, padding) => {
   logCall("info", style(message, styles, padding));
