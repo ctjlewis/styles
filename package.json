@@ -1,12 +1,12 @@
 {
-  "name": "@tsmodule/styles",
+  "name": "@tsmodule/log",
   "license": "MIT",
   "type": "module",
   "types": "dist/index.d.ts",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ctjlewis/bun-style.git"
+    "url": "git+https://github.com/@tsmodule/log.git"
   },
   "exports": {
     "./package.json": "./package.json",
