@@ -44,3 +44,8 @@ export const group = {
     console.groupEnd();
   }
 };
+
+/**
+ * Regular old `console.clear`.
+ */
+export const clear = () => console.clear();
