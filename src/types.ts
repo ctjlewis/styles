@@ -6,6 +6,12 @@ export type LogStyles =
   keyof Modifier;
 
 export type PaddingOptions = {
-  indent: number;
+  /**
+   * Indent level by 2 spaces.
+   */
+  level: number;
+  /**
+   * Number of newlines that follow.
+   */
   newlines: number;
 };

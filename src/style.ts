@@ -11,8 +11,8 @@ import { LogStyles, PaddingOptions } from "./types";
 export const style = (
   message?: string,
   styles?: LogStyles[],
-  { indent, newlines }: PaddingOptions = {
-    indent: message ? 2 : 0,
+  { level, newlines }: PaddingOptions = {
+    level: message ? 1 : 0,
     newlines: message ? 1 : 0
   }
 ) => {
@@ -36,7 +36,7 @@ export const style = (
     message = opening + message + closing;
   }
 
-  const lineStartSpacing = " ".repeat(indent);
+  const lineStartSpacing = " ".repeat(level * 2);
   const lineEndSpacing = "\n".repeat(newlines);
 
   /**
