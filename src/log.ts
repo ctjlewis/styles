@@ -6,7 +6,7 @@ import { LogStyles, PaddingOptions } from "./types";
  * Styled `console.log`.
  */
 export const log = (
-  message: string,
+  message = "",
   styles: LogStyles[] = [],
   padding?: PaddingOptions
 ) => {
@@ -17,7 +17,7 @@ export const log = (
  * Styled `console.error`.
  */
 export const error = (
-  message: string,
+  message = "",
   styles: LogStyles[] = [],
   padding?: PaddingOptions
 ) => {
@@ -29,7 +29,7 @@ export const error = (
  */
 export const group = {
   start: (
-    message: string,
+    message = "",
     styles: LogStyles[] = [],
     padding?: PaddingOptions
   ) => {
