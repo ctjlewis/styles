@@ -63,7 +63,7 @@ export const clear: Logger = () => {
   /**
    * Log an empty line.
    */
-  // logCall("log");
+  logCall("log");
 };
 
 export const info: Logger = (message, styles, padding) => {
