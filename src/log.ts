@@ -59,7 +59,9 @@ export const clear: Logger = () => {
   /**
    * Flush stdout.
    */
-  process.stdout.write("\u001b[3J\u001b[2J\u001b[1J");
+  if (process.stdout.isTTY) {
+    process.stdout.write("\u001b[3J\u001b[2J\u001b[1J");
+  }
   /**
    * Log an empty line.
    */
