@@ -1,4 +1,5 @@
 import ansiStyles from "ansi-styles";
+import { TTY } from "./globs";
 import { LogStyles, PaddingOptions } from "./types";
 
 /**
@@ -23,7 +24,7 @@ export const style = (
   /**
    * If styles are provided and stdout is TTY, then apply styles.
    */
-  if (styles && process.stdout.isTTY) {
+  if (styles && TTY) {
     let opening = "";
     let closing = "";
 

@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { TTY } from "./globs";
 import { style } from "./style";
 import { LogStyles, PaddingOptions } from "./types";
 
@@ -59,8 +60,10 @@ export const clear: Logger = () => {
   /**
    * Flush stdout.
    */
-  if (process.stdout.isTTY) {
+  if (TTY) {
     process.stdout.write("\u001b[3J\u001b[2J\u001b[1J");
+  } else {
+    logCall("log", `\n  ${"-".repeat(40)}\n`);
   }
   /**
    * Log an empty line.
