@@ -65,6 +65,7 @@ export const clear: Logger = () => {
   } else {
     logCall("log", `\n  ${"-".repeat(40)}\n`);
   }
+
   /**
    * Log an empty line.
    */

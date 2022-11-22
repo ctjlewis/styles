@@ -11,11 +11,11 @@ import { LogStyles, PaddingOptions } from "./types";
  */
 export const style = (
   message?: string,
-  styles?: LogStyles[],
+  styles: LogStyles[] = [],
   {
     level = message ? 1 : 0,
     newlines = message ? 1 : 0
-  }: PaddingOptions = {}
+  }: PaddingOptions = {},
 ) => {
   if (typeof message === "undefined") {
     return undefined;
