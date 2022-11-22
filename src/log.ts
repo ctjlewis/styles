@@ -60,8 +60,10 @@ export const error: Logger = (message, styles = [], padding) => {
 
 const groupStart: Logger = (message, styles = []) => {
   console.group();
-  console.log(style(message, ["bold", ...styles]));
-  console.log();
+  if (message) {
+    console.log(style(message, ["bold", ...styles]));
+    console.log();
+  }
 };
 
 const groupEnd: Logger = () => {

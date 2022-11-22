@@ -1,17 +1,29 @@
-import { log } from "./log";
+import { env } from "process";
+import { group, log } from "./log";
+
+const addedInitialPadding = env["__ADDED_INITIAL_PADDING__"] || null;
+
+const addFinalPadding = () => {
+  log();
+  log();
+  group.end();
+};
+
+const addInitialPadding = () => {
+  log();
+  log();
+  group.start();
+
+  env["__ADDED_INITIAL_PADDING__"] = "true";
+};
+
+if (!addedInitialPadding) {
+  addInitialPadding();
+}
 
 /**
  * Force padding on process close. Fun!
  */
-
-const setPaddingAlready = Boolean((globalThis as any)["__SET_END_PADDING"]);
-
-if (!setPaddingAlready) {
-  Object.assign(globalThis, { "__SET_END_PADDING": true });
-  process.on("exit", () => {
-    log();
-    log();
-  });
-}
+process.addListener("exit", addFinalPadding);
 
 export {};

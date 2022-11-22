@@ -1,7 +1,7 @@
 import { clear, group, log } from "../src";
 
-log("Clear test ", ["white", "bold"]);
-clear();
+// log("Clear test ", ["white", "bold"]);
+// clear();
 
 log("Styles testing! ", ["white", "bold"]);
 log("Running tests...", ["bold", "underline", "grey"]);
