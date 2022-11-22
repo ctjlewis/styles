@@ -52,7 +52,7 @@ export const group = {
 /**
  * Clear stdout.
  */
-export const clear = (flush = false) => {
+export const clear = (flush = true) => {
   /**
    * Clear the console.
    */
