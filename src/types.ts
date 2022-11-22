@@ -9,9 +9,9 @@ export type PaddingOptions = {
   /**
    * Indent level by 2 spaces.
    */
-  level: number;
+  level?: number;
   /**
    * Number of newlines that follow.
    */
-  newlines: number;
+  newlines?: number;
 };
