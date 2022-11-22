@@ -52,7 +52,7 @@ export const group = {
 /**
  * Clear stdout.
  */
-export const clear: Logger = () => {
+export const clear = (flush = false) => {
   /**
    * Clear the console.
    */
@@ -61,7 +61,9 @@ export const clear: Logger = () => {
    * Flush stdout.
    */
   if (TTY) {
-    logCall("log", "\u001b[3J\u001b[2J\u001b[1J");
+    if (flush) {
+      logCall("log", "\u001b[3J\u001b[2J\u001b[1J");
+    }
   } else {
     logCall("log", `\n  ${"-".repeat(15)} Console was cleared. ${"-".repeat(15)}\n`);
   }
