@@ -63,7 +63,7 @@ export const clear: Logger = () => {
   if (TTY) {
     logCall("log", "\u001b[3J\u001b[2J\u001b[1J");
   } else {
-    logCall("log", `\n  ${"-".repeat(40)}\n`);
+    logCall("log", `\n  ${"-".repeat(15)} Console was cleared. ${"-".repeat(15)}\n`);
   }
 
   /**
