@@ -1,6 +1,6 @@
 import ansiStyles from "ansi-styles";
 import { TTY } from "./globs";
-import { LogStyles, PaddingOptions } from "./types";
+import { LogStyles } from "./types";
 
 /**
  * Apply ANSI styles to a message, as well as a given indent and newline
@@ -11,11 +11,7 @@ import { LogStyles, PaddingOptions } from "./types";
  */
 export const style = (
   message?: string,
-  styles: LogStyles[] = [],
-  {
-    level = message ? 1 : 0,
-    newlines = message ? 1 : 0
-  }: PaddingOptions = {},
+  styles: LogStyles[] = []
 ) => {
   if (typeof message === "undefined") {
     return undefined;
@@ -37,15 +33,5 @@ export const style = (
     message = opening + message + closing;
   }
 
-  const lineStartSpacing = " ".repeat(level * 2);
-  const lineEndSpacing = "\n".repeat(newlines);
-
-  /**
-   * Apply indent and spacing.
-   */
-  return (
-    lineStartSpacing +
-    message +
-    lineEndSpacing
-  );
+  return message;
 };
