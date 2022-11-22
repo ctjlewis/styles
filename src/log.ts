@@ -109,13 +109,3 @@ export const warn: Logger = (message, styles, padding) => {
 export const debug: Logger = (message, styles, padding) => {
   logCall("debug", style(message, styles), padding);
 };
-
-export default {
-  log,
-  error,
-  group,
-  clear,
-  info,
-  warn,
-  debug,
-};
