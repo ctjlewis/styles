@@ -22,13 +22,25 @@ const logCall = (
     return;
   }
 
+  /**
+   * Open indentations.
+   */
   for (let i = 0; i < level + 1; i++) {
     console.group();
   }
+  /**
+   * Log the raw string.
+   */
   logType(raw);
+  /**
+   * Close indentations.
+   */
   for (let i = 0; i < level + 1; i++) {
     console.groupEnd();
   }
+  /**
+   * Log newlines.
+   */
   for (let i = 0; i < newlines; i++) {
     console.log();
   }
