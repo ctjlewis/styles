@@ -61,7 +61,7 @@ export const clear: Logger = () => {
    * Flush stdout.
    */
   if (TTY) {
-    process.stdout.write("\u001b[3J\u001b[2J\u001b[1J");
+    logCall("log", "\u001b[3J\u001b[2J\u001b[1J");
   } else {
     logCall("log", `\n  ${"-".repeat(40)}\n`);
   }
