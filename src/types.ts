@@ -11,9 +11,13 @@ export type LogOptions = {
    */
   level?: number;
   /**
-   * Number of newlines that follow.
+   * Number of lines that precede the message.
    */
-  newlines?: number;
+  preLines?: number;
+  /**
+   * Number of newlines that follow the message.
+   */
+  postLines?: number;
   /**
    * Whether to force styling regardless of TTY.
    */

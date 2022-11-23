@@ -17,8 +17,6 @@ const setInitialPadding = () => env[ADDED_INITIAL_PADDING] || null;
 const setFinalPaddingListener = () => env[SET_FiNAL_PADDING_LISTENER] || null;
 
 const addInitialPadding = () => {
-  log();
-  log();
   group.start();
 
   env[ADDED_INITIAL_PADDING] = "true";

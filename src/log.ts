@@ -15,7 +15,8 @@ const logCall = (
   raw?: string,
   {
     level = 0,
-    newlines = raw ? 1 : 0,
+    preLines = raw ? 1 : 0,
+    postLines = 0,
   }: LogOptions = {}
 ) => {
   const logType = console[type];
@@ -28,24 +29,30 @@ const logCall = (
   /**
    * Open indentations.
    */
-  for (let i = 0; i < level + 1; i++) {
+  for (let i = 0; i < level; i++) {
     console.group();
+  }
+  /**
+   * Log preceding newlines.
+   */
+  for (let i = 0; i < preLines; i++) {
+    console.log();
   }
   /**
    * Log the raw string.
    */
   logType(raw);
   /**
-   * Close indentations.
+   * Log following newlines.
    */
-  for (let i = 0; i < level + 1; i++) {
-    console.groupEnd();
+  for (let i = 0; i < postLines; i++) {
+    console.log();
   }
   /**
-   * Log newlines.
+   * Close indentations.
    */
-  for (let i = 0; i < newlines; i++) {
-    console.log();
+  for (let i = 0; i < level; i++) {
+    console.groupEnd();
   }
 };
 
@@ -76,12 +83,15 @@ export const error: Logger = (
 const groupStart: Logger = (
   message,
   styles = [],
-  { force = false } = {}) => {
-  console.group();
-  if (message) {
-    console.log(style(message, ["bold", ...styles], force));
-    console.log();
+  { force = false } = {}
+) => {
+  if (!message) {
+    return console.group();
   }
+
+  console.log();
+  console.log();
+  console.group(style(message, ["bold", ...styles], force));
 };
 
 const groupEnd: Logger = () => {
@@ -111,11 +121,6 @@ export const clear = (flush = true) => {
   } else {
     logCall("log", `\n  ${"-".repeat(15)} Console was cleared. ${"-".repeat(15)}\n`);
   }
-
-  /**
-   * Log an empty line.
-   */
-  logCall("log");
 };
 
 export const info: Logger = (message, styles, options) => {
