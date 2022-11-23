@@ -112,7 +112,7 @@ export const group = {
  * anything that was already in the stream.
  *
  * I don't really know how this doesn't overwrite everything with newlines, but
- * if you know what's happening here or how to imrpove it, please let me know.
+ * if you know what's happening here or how to improve it, please let me know.
  */
 export const clearStart = () => {
   if (TTY) {
