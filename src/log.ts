@@ -30,10 +30,12 @@ const logCall = (
     return;
   }
 
-  if (nonTtyDedupe && process.stdout.isTTY && raw === lastLog) {
-    return;
-  } else {
-    lastLog = raw;
+  if (nonTtyDedupe) {
+    if (!process.stdout.isTTY && raw === lastLog) {
+      return;
+    } else {
+      lastLog = raw;
+    }
   }
 
   /**
