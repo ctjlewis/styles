@@ -11,7 +11,14 @@ type Logger = (
   options?: LogOptions
 ) => void;
 
+/**
+ * The last non-clear log written to the console.
+ */
 let lastLog: string | undefined;
+/**
+ * The last log of any kind written to the console.
+ */
+let lastOutput: string | undefined;
 
 const logCall = (
   type: LogType,
@@ -21,7 +28,8 @@ const logCall = (
     preLines = raw ? 1 : 0,
     postLines = 0,
     nonTtyDedupe = true,
-  }: LogOptions = {}
+  }: LogOptions = {},
+  clear = false,
 ) => {
   const logType = console[type];
 
@@ -30,12 +38,16 @@ const logCall = (
     return;
   }
 
-  if (nonTtyDedupe) {
-    if (!process.stdout.isTTY && raw === lastLog) {
+  if (nonTtyDedupe && !TTY) {
+    if (raw === lastLog || raw === lastOutput) {
       return;
-    } else {
+    }
+
+    if (!clear) {
       lastLog = raw;
     }
+
+    lastOutput = raw;
   }
 
   /**
@@ -139,13 +151,18 @@ export const clear = (flush = true) => {
   if (TTY) {
     if (flush) {
       console.clear();
-      logCall("log", "\u001b[3J\u001b[2J\u001b[1J");
+      logCall("log", "\u001b[3J\u001b[2J\u001b[1J", {}, true);
     } else {
       cursorTo(process.stdout, 0, 0);
       clearScreenDown(process.stdout);
     }
   } else {
-    logCall("log", `\n  ${"-".repeat(15)} Console was cleared. ${"-".repeat(15)}\n`);
+    logCall(
+      "log",
+      `\n  ${"-".repeat(15)} Console was cleared. ${"-".repeat(15)}\n`,
+      {},
+      true
+    );
   }
 };
 
