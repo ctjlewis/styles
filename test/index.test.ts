@@ -1,7 +1,8 @@
-import { clear, group, log } from "../src";
+import { clear, clearStart, group, log } from "../src";
 
+// clearStart();
 // log("Clear test ", ["white", "bold"]);
-// clear();
+// clear(false);
 
 log("Styles testing! ", ["white", "bold"]);
 log("Running tests...", ["bold", "underline", "grey"]);

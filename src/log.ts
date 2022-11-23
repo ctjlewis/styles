@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { clearScreenDown, cursorTo } from "readline";
 import { TTY } from "./globs";
 import { style } from "./style";
 import { LogStyles, LogOptions } from "./types";
@@ -104,19 +105,25 @@ export const group = {
 };
 
 /**
- * Clear stdout.
+ * Mark the start of content to be cleared by a subsequent `clear()` call.
+ */
+export const clearStart = () => {
+  if (TTY) {
+    process.stdout.write("\n".repeat(process.stdout.rows - 1));
+  }
+};
+
+/**
+ * Clear stdout. `flush` determines whether to flush previous contents of
+ * stdout.
  */
 export const clear = (flush = true) => {
-  /**
-   * Clear the console.
-   */
-  console.clear();
-  /**
-   * Flush stdout.
-   */
   if (TTY) {
     if (flush) {
       logCall("log", "\u001b[3J\u001b[2J\u001b[1J");
+    } else {
+      cursorTo(process.stdout, 0, 0);
+      clearScreenDown(process.stdout);
     }
   } else {
     logCall("log", `\n  ${"-".repeat(15)} Console was cleared. ${"-".repeat(15)}\n`);
