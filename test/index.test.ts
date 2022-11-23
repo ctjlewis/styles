@@ -22,3 +22,6 @@ group.start("Group 2", ["red"]);
 log("Group 2 log 1", ["italic"]);
 log("Group 2 log 2", ["italic"]);
 group.end();
+
+// clear(true);
+// log("Hello world!", ["white", "bold"]);
