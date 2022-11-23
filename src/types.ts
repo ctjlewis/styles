@@ -5,7 +5,7 @@ export type LogStyles =
   keyof BackgroundColor |
   keyof Modifier;
 
-export type PaddingOptions = {
+export type LogOptions = {
   /**
    * Indent level by 2 spaces.
    */
@@ -14,4 +14,8 @@ export type PaddingOptions = {
    * Number of newlines that follow.
    */
   newlines?: number;
+  /**
+   * Whether to force styling regardless of TTY.
+   */
+  force?: boolean;
 };

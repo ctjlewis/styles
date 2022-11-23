@@ -10,17 +10,27 @@ import { LogStyles } from "./types";
  * applied.
  */
 export const style = (
-  message?: string,
-  styles: LogStyles[] = []
+  /**
+   * The string to style.
+   */
+  str?: string,
+  /**
+   * The styles to apply.
+   */
+  styles: LogStyles[] = [],
+  /**
+   * Whether to force styling regardless of TTY.
+   */
+  force = false
 ) => {
-  if (typeof message === "undefined") {
+  if (typeof str === "undefined") {
     return undefined;
   }
 
   /**
    * If styles are provided and stdout is TTY, then apply styles.
    */
-  if (styles && TTY) {
+  if (styles && (force || TTY)) {
     let opening = "";
     let closing = "";
 
@@ -30,8 +40,8 @@ export const style = (
       closing += ansiStyle.close;
     }
 
-    message = opening + message + closing;
+    str = opening + str + closing;
   }
 
-  return message;
+  return str;
 };

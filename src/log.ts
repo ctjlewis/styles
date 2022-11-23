@@ -1,19 +1,22 @@
 /* eslint-disable no-console */
 import { TTY } from "./globs";
 import { style } from "./style";
-import { LogStyles, PaddingOptions } from "./types";
+import { LogStyles, LogOptions } from "./types";
 
 type LogType = "log" | "info" | "warn" | "error" | "debug";
 type Logger = (
   message?: string,
   styles?: LogStyles[],
-  padding?: PaddingOptions
+  options?: LogOptions
 ) => void;
 
 const logCall = (
   type: LogType,
   raw?: string,
-  { level = 0, newlines = raw ? 1 : 0 }: PaddingOptions = {}
+  {
+    level = 0,
+    newlines = raw ? 1 : 0,
+  }: LogOptions = {}
 ) => {
   const logType = console[type];
 
@@ -46,22 +49,37 @@ const logCall = (
   }
 };
 
-export const log: Logger = (message, styles, padding) => {
-  logCall("log", style(message, styles), padding);
+export const log: Logger = (
+  message,
+  styles,
+  { force = false, ...options } = {}
+) => {
+  logCall("log", style(message, styles, force), options);
 };
 
-export const success: Logger = (message, styles = [], padding) => {
-  logCall("log", style(message, ["green", ...styles]), padding);
+export const success: Logger = (
+  message,
+  styles = [],
+  { force = false, ...options } = {}
+) => {
+  logCall("log", style(message, ["green", ...styles], force), options);
 };
 
-export const error: Logger = (message, styles = [], padding) => {
-  logCall("error", style(message, ["red", ...styles]), padding);
+export const error: Logger = (
+  message,
+  styles = [],
+  { force = false, ...options } = {}
+) => {
+  logCall("error", style(message, ["red", ...styles], force), options);
 };
 
-const groupStart: Logger = (message, styles = []) => {
+const groupStart: Logger = (
+  message,
+  styles = [],
+  { force = false } = {}) => {
   console.group();
   if (message) {
-    console.log(style(message, ["bold", ...styles]));
+    console.log(style(message, ["bold", ...styles], force));
     console.log();
   }
 };
@@ -100,14 +118,14 @@ export const clear = (flush = true) => {
   logCall("log");
 };
 
-export const info: Logger = (message, styles, padding) => {
-  logCall("info", style(message, styles), padding);
+export const info: Logger = (message, styles, options) => {
+  logCall("info", style(message, styles), options);
 };
 
-export const warn: Logger = (message, styles, padding) => {
-  logCall("warn", style(message, styles), padding);
+export const warn: Logger = (message, styles, options) => {
+  logCall("warn", style(message, styles), options);
 };
 
-export const debug: Logger = (message, styles, padding) => {
-  logCall("debug", style(message, styles), padding);
+export const debug: Logger = (message, styles, options) => {
+  logCall("debug", style(message, styles), options);
 };
