@@ -127,6 +127,7 @@ export const clearStart = () => {
 export const clear = (flush = true) => {
   if (TTY) {
     if (flush) {
+      console.clear();
       logCall("log", "\u001b[3J\u001b[2J\u001b[1J");
     } else {
       cursorTo(process.stdout, 0, 0);

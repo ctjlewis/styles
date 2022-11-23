@@ -1,12 +1,17 @@
 import { clear, clearStart, group, log } from "../src";
 
-// clearStart();
-// log("Clear test ", ["white", "bold"]);
-// clear(false);
+clearStart();
+log("Clear test. Loooooooong loooooooooooong title", ["white", "bold"]);
+clear(false);
 
 log("Styles testing! ", ["white", "bold"]);
 log("Running tests...", ["bold", "underline", "grey"]);
 log("✓ 10 tests passed", ["green"]);
+
+clearStart();
+log("Clear test. Loooooooong loooooooooooong title", ["white", "bold"]);
+clear(false);
+log("Replaced!", ["white", "bold"]);
 
 group.start("Group 1");
 log("Group 1 log 1", ["blue"]);
