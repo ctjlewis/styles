@@ -22,7 +22,7 @@ export const style = (
    * Whether to force styling regardless of TTY.
    */
   force = false
-) => {
+): typeof str => {
   if (typeof str === "undefined") {
     return undefined;
   }
