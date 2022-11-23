@@ -11,6 +11,8 @@ type Logger = (
   options?: LogOptions
 ) => void;
 
+let lastLog: string | undefined;
+
 const logCall = (
   type: LogType,
   raw?: string,
@@ -18,6 +20,7 @@ const logCall = (
     level = 0,
     preLines = raw ? 1 : 0,
     postLines = 0,
+    nonTtyDedupe = true,
   }: LogOptions = {}
 ) => {
   const logType = console[type];
@@ -25,6 +28,12 @@ const logCall = (
   if (typeof raw === "undefined") {
     logType();
     return;
+  }
+
+  if (nonTtyDedupe && process.stdout.isTTY && raw === lastLog) {
+    return;
+  } else {
+    lastLog = raw;
   }
 
   /**

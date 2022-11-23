@@ -22,4 +22,9 @@ export type LogOptions = {
    * Whether to force styling regardless of TTY.
    */
   force?: boolean;
+  /**
+   * Whether or not to remove duplicate logs for non-TTY environments. Defaults
+   * to `true`.
+   */
+  nonTtyDedupe?: boolean;
 };
