@@ -130,6 +130,9 @@ export const group = {
 /**
  * Appends a number of newlines to process.stdout, which pushes the end of the
  * current content up to the top of the terminal.
+ *
+ * Everything after (0, 0) will be cleared, so this pushes existing contents
+ * above (0, 0).
  */
 export const pushToTop = () => {
   if (TTY) {
@@ -143,12 +146,11 @@ export type ClearOptions = {
    */
   flush?: boolean;
   /**
-   * Whether the content to be cleared is manually controlled with a
-   * clearStart(). If `false`, one will be inserted automatically.
+   * Automatically push the terminal contents out of view.
    *
    * Only apples if `flush` is `false`.
    */
-  manual?: boolean;
+  overwrite?: boolean;
 };
 
 /**
@@ -157,10 +159,10 @@ export type ClearOptions = {
  */
 export const clear = ({
   flush = false,
-  manual = false,
+  overwrite = false,
 }: ClearOptions = {}) => {
   if (TTY) {
-    if (!manual) {
+    if (!overwrite) {
       pushToTop();
     }
 

@@ -2,7 +2,7 @@ import { clear, pushToTop, group, log } from "../src";
 
 pushToTop();
 log("Clear test. Loooooooong loooooooooooong title", ["white", "bold"]);
-clear({ manual: true });
+clear({ overwrite: true });
 
 log("Styles testing! ", ["white", "bold"]);
 log("Running tests...", ["bold", "underline", "grey"]);
@@ -10,7 +10,7 @@ log("✓ 10 tests passed", ["green"]);
 
 pushToTop();
 log("Clear test. Loooooooong loooooooooooong title", ["white", "bold"]);
-clear({ manual: true });
+clear({ overwrite: true });
 log("Replaced!", ["white", "bold"]);
 
 group.start("Group 1");
