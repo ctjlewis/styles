@@ -1,12 +1,12 @@
 import { clear, pushToTop, group, log } from "../src";
 
+log("Styles testing! ", ["white", "bold"], { preLines: 0 });
+log("Running tests...", ["bold", "underline", "grey"]);
+log("✓ 10 tests passed", ["green"]);
+
 pushToTop();
 log("Clear test. Loooooooong loooooooooooong title", ["white", "bold"]);
 clear({ overwrite: true });
-
-log("Styles testing! ", ["white", "bold"]);
-log("Running tests...", ["bold", "underline", "grey"]);
-log("✓ 10 tests passed", ["green"]);
 
 pushToTop();
 log("Clear test. Loooooooong loooooooooooong title", ["white", "bold"]);

@@ -136,7 +136,7 @@ export const group = {
  */
 export const pushToTop = () => {
   if (TTY) {
-    process.stdout.write("\n".repeat(process.stdout.rows));
+    process.stdout.write("\n".repeat(process.stdout.rows - 1));
   }
 };
 
