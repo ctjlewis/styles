@@ -67,10 +67,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@tsmodule/tsmodule@^41.10.0":
-  version "41.10.0"
-  resolved "https://registry.yarnpkg.com/@tsmodule/tsmodule/-/tsmodule-41.10.0.tgz#f19b663fe83af75158f5142b89039736a025e1db"
-  integrity sha512-tGz3zk4+GpljMFGEblF8ag5KpITijOftneqGA73eggkksCSIIJmB8oOG1uc7wX1v6gcqqqgRceu7AUrp41VdhQ==
+"@tsmodule/tsmodule@^41.21.0":
+  version "41.21.0"
+  resolved "https://registry.yarnpkg.com/@tsmodule/tsmodule/-/tsmodule-41.21.0.tgz#e6260454dc067164e996d6a5bcd1970216f0539d"
+  integrity sha512-Ri/JjwMa7hxiO84P2xz+f4pappqQzbtQtY0ESzTvVlBZ6FdPdq2RODM9eOpUvO8xLgzs08097KczWXrowFfMFQ==
   dependencies:
     esbuild "^0.15.15"
     typescript "^4.9.3"
