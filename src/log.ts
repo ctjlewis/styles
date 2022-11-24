@@ -128,28 +128,44 @@ export const group = {
 };
 
 /**
- * Mark the start of content to be cleared by a subsequent `clear()` call.
- *
- * I don't really understand why this works, it basically just makes sure the
- * current end of process.stdout aligns with (0, 0) and you don't overwrite
- * anything that was already in the stream.
- *
- * I don't really know how this doesn't overwrite everything with newlines, but
- * if you know what's happening here or how to improve it, please let me know.
+ * Appends a number of newlines to process.stdout, which pushes the end of the
+ * current content up to the top of the terminal.
  */
-export const clearStart = () => {
+export const pushToTop = () => {
   if (TTY) {
-    process.stdout.write("\n".repeat(process.stdout.rows - 1));
+    process.stdout.write("\n".repeat(process.stdout.rows));
   }
+};
+
+export type ClearOptions = {
+  /**
+   * Whether to flush the contents of stdout, including history.
+   */
+  flush?: boolean;
+  /**
+   * Whether the content to be cleared is manually controlled with a
+   * clearStart(). If `false`, one will be inserted automatically.
+   *
+   * Only apples if `flush` is `false`.
+   */
+  manual?: boolean;
 };
 
 /**
  * Clear stdout. `flush` determines whether to flush previous contents of
  * stdout.
  */
-export const clear = (flush = true) => {
+export const clear = ({
+  flush = false,
+  manual = false,
+}: ClearOptions = {}) => {
   if (TTY) {
+    if (!manual) {
+      pushToTop();
+    }
+
     cursorTo(process.stdout, 0, 0);
+
     if (flush) {
       logCall("log", "\u001b[3J\u001b[2J\u001b[1J", {}, true);
     } else {
