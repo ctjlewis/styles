@@ -41,6 +41,6 @@ log("Group 2 log 1", ["italic"]);
 log("Group 2 log 2", ["italic"]);
 group.end();
 
-clear();
+// clear();
 // clear(true);
 // log("Hello world!", ["white", "bold"]);

@@ -11,10 +11,10 @@ import { env } from "process";
 import { group, log } from "./log";
 
 const ADDED_INITIAL_PADDING = "__ADDED_INITIAL_PADDING__";
-const SET_FiNAL_PADDING_LISTENER = "__SET_FiNAL_PADDING_LISTENER__";
+const SET_FINAL_PADDING_LISTENER = "__SET_FiNAL_PADDING_LISTENER__";
 
 const setInitialPadding = () => env[ADDED_INITIAL_PADDING] || null;
-const setFinalPaddingListener = () => env[SET_FiNAL_PADDING_LISTENER] || null;
+const setFinalPaddingListener = () => env[SET_FINAL_PADDING_LISTENER] || null;
 
 const addInitialPadding = () => {
   log();
@@ -44,7 +44,14 @@ if (!setInitialPadding()) {
  */
 if (!setFinalPaddingListener()) {
   process.on("exit", addFinalPadding);
-  env[SET_FiNAL_PADDING_LISTENER] = "true";
+  env[SET_FINAL_PADDING_LISTENER] = "true";
 }
+
+/**
+ * Ensures the process.exit() event fires, including on Windows.
+ */
+process.addListener("SIGINT", () => {
+  process.exit(1);
+});
 
 export {};
