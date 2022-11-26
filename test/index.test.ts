@@ -1,4 +1,4 @@
-import { clear, pushToTop, group, log } from "../src";
+import { clear, pushToTop, group, log, clearLast } from "../src";
 
 
 
@@ -11,7 +11,7 @@ let i = 0;
 while (Date.now() - start < 10_000) {
   log(`${symbols[i++ % symbols.length]} Testing...`, ["bold", "underline", "grey"]);
   await new Promise((resolve) => setTimeout(resolve, 1000 / 10));
-  clear({ overwrite: true, lines: 3 });
+  clearLast();
 }
 
 log("✓ Tests passed!", ["bold", "underline", "green"]);
@@ -28,7 +28,7 @@ log("First test cleared");
 
 // pushToTop();
 log("SECOND CLEAR TEST. Loooooooong loooooooooooong title", ["white", "bold"]);
-clear({ overwrite: true, lines: 2 });
+clear({ overwrite: true, lines: 3 });
 log("Second test cleared");
 
 group.start("Group 1");

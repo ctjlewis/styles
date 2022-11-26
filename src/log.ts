@@ -14,11 +14,14 @@ type Logger = (
 /**
  * The last non-clear log written to the console.
  */
-let lastLog: string | undefined;
+let lastMessage: string | undefined;
 /**
  * The last log of any kind written to the console.
  */
-let lastOutput: string | undefined;
+let lastLog: {
+  raw: string;
+  lines: number;
+} | null = null;
 
 const logCall = (
   type: LogType,
@@ -39,15 +42,23 @@ const logCall = (
   }
 
   if (nonTtyDedupe && !TTY) {
-    if (raw === lastLog || raw === lastOutput) {
+    if (raw === lastMessage || raw === lastLog?.raw) {
       return;
     }
 
     if (!clear) {
-      lastLog = raw;
+      lastMessage = raw;
     }
+  }
 
-    lastOutput = raw;
+  const rawLines = raw.split("\n").length;
+  const lines = preLines + rawLines + postLines;
+
+  if (!lastLog) {
+    lastLog = {
+      raw,
+      lines,
+    };
   }
 
   /**
@@ -189,15 +200,24 @@ export const clear = ({
     return;
   }
 
+  // stdout.moveCursor(0, -lines);
+  // stdout.clearScreenDown();
+
   stdout.cursorTo(0);
 
-  for (let i = 0; i < lines; i++) {
-    if (i > 0) {
-      stdout.moveCursor(0, -1);
-    }
-
+  for (let i = lines; i > 0; i--) {
+    stdout.moveCursor(0, -1);
     stdout.clearLine(1);
   }
+};
+
+export const clearLast = () => {
+  if (!TTY) {
+    console.clear();
+    return;
+  }
+
+  clear({ overwrite: true, lines: lastLog ? lastLog.lines : 0 });
 };
 
 export const info: Logger = (message, styles, options) => {
