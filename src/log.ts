@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { clearScreenDown, cursorTo } from "readline";
+import { stdout } from "process";
 import { TTY } from "./globs";
 import { style } from "./style";
 import { LogStyles, LogOptions } from "./types";
@@ -128,7 +128,7 @@ export const group = {
 };
 
 /**
- * Appends a number of newlines to process.stdout, which pushes the end of the
+ * Appends a number of newlines to stdout, which pushes the end of the
  * current content up to the top of the terminal.
  *
  * Everything after (0, 0) will be cleared, so this pushes existing contents
@@ -136,7 +136,9 @@ export const group = {
  */
 export const pushToTop = () => {
   if (TTY) {
-    process.stdout.write("\n".repeat(process.stdout.rows - 1));
+    stdout.write("\n".repeat(stdout.rows));
+    stdout.cursorTo(0, 0);
+    stdout.clearScreenDown();
   }
 };
 
@@ -151,6 +153,10 @@ export type ClearOptions = {
    * Only apples if `flush` is `false`.
    */
   overwrite?: boolean;
+  /**
+   * Number of lines to clear.
+   */
+  lines?: number;
 };
 
 /**
@@ -160,26 +166,37 @@ export type ClearOptions = {
 export const clear = ({
   flush = false,
   overwrite = false,
+  lines = stdout.columns,
 }: ClearOptions = {}) => {
-  if (TTY) {
-    if (!overwrite) {
-      pushToTop();
-    }
-
-    cursorTo(process.stdout, 0, 0);
-
-    if (flush) {
-      logCall("log", "\u001b[3J\u001b[2J\u001b[1J", {}, true);
-    } else {
-      clearScreenDown(process.stdout);
-    }
-  } else {
+  if (!TTY) {
     logCall(
       "log",
       `\n  ${"-".repeat(15)} Console was cleared. ${"-".repeat(15)}\n`,
       {},
       true
     );
+
+    return;
+  }
+
+  if (!overwrite) {
+    pushToTop();
+    return;
+  }
+
+  if (flush) {
+    logCall("log", "\u001b[3J\u001b[2J\u001b[1J", {}, true);
+    return;
+  }
+
+  stdout.cursorTo(0);
+
+  for (let i = 0; i < lines; i++) {
+    if (i > 0) {
+      stdout.moveCursor(0, -1);
+    }
+
+    stdout.clearLine(1);
   }
 };
 
