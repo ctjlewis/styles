@@ -18,7 +18,7 @@ const setFinalPaddingListener = () => env[SET_FINAL_PADDING_LISTENER] || null;
 
 const addInitialPadding = () => {
   log();
-  log();
+  // log();
   group.start();
 
   env[ADDED_INITIAL_PADDING] = "true";
@@ -26,7 +26,7 @@ const addInitialPadding = () => {
 
 const addFinalPadding = () => {
   log();
-  log();
+  // log();
   group.end();
 
   process.removeListener("exit", addFinalPadding);
