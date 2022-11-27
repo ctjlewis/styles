@@ -200,15 +200,16 @@ export const clear = ({
     return;
   }
 
-  // stdout.moveCursor(0, -lines);
-  // stdout.clearScreenDown();
-
   stdout.cursorTo(0);
+  stdout.moveCursor(0, -lines);
+  stdout.clearScreenDown();
 
-  for (let i = lines; i > 0; i--) {
-    stdout.moveCursor(0, -1);
-    stdout.clearLine(1);
-  }
+  // stdout.cursorTo(0);
+
+  // for (let i = 0; i < lines; i++) {
+  //   stdout.moveCursor(0, -1);
+  //   stdout.clearLine(1);
+  // }
 };
 
 export const clearLast = () => {
