@@ -27,8 +27,8 @@ const logCall = (
   type: LogType,
   raw?: string,
   {
-    level = 0,
-    preLines = raw ? 1 : 0,
+    level = 1,
+    preLines = 0,
     postLines = 0,
     nonTtyDedupe = true,
   }: LogOptions = {},
@@ -53,13 +53,12 @@ const logCall = (
 
   const rawLines = raw.split("\n").length;
   const lines = preLines + rawLines + postLines;
+  // console.log({ lines });
 
-  if (!lastLog) {
-    lastLog = {
-      raw,
-      lines,
-    };
-  }
+  lastLog = {
+    raw,
+    lines,
+  };
 
   /**
    * Open indentations.
@@ -99,6 +98,22 @@ export const log: Logger = (
   logCall("log", style(message, styles, force), options);
 };
 
+export const preLog: Logger = (
+  message,
+  styles,
+  { force = false, preLines = 1, ...options } = {}
+) => {
+  logCall("log", style(message, styles, force), { preLines, ...options });
+};
+
+export const postLog: Logger = (
+  message,
+  styles,
+  { force = false, postLines = 1, ...options } = {}
+) => {
+  logCall("log", style(message, styles, force), { postLines, ...options });
+};
+
 export const success: Logger = (
   message,
   styles = [],
@@ -118,7 +133,7 @@ export const error: Logger = (
 const groupStart: Logger = (
   message,
   styles = [],
-  { force = false } = {}
+  { force = false, level = 1 } = {}
 ) => {
   if (!message) {
     return console.group();
@@ -126,7 +141,16 @@ const groupStart: Logger = (
 
   console.log();
   console.log();
+
+  for (let i = 0; i < level; i++) {
+    console.group();
+  }
+
   console.group(style(message, ["bold", ...styles], force));
+
+  for (let i = 0; i < level; i++) {
+    console.groupEnd();
+  }
 };
 
 const groupEnd: Logger = () => {
@@ -195,7 +219,7 @@ export const hideCursor = () => {
 export const clear = ({
   flush = false,
   overwrite = false,
-  lines = stdout.columns,
+  lines = stdout.rows,
 }: ClearOptions = {}) => {
   if (!TTY) {
     logCall(
@@ -238,6 +262,7 @@ export const clearLast = () => {
     return;
   }
 
+  // console.log({ lastLog });
   clear({ overwrite: true, lines: lastLog ? lastLog.lines : 0 });
 };
 
