@@ -171,6 +171,24 @@ export type ClearOptions = {
 };
 
 /**
+ * Show the TTY cursor.
+ */
+export const showCursor = () => {
+  if (process) {
+    process.stdout.write("\x1b[?25h");
+  }
+};
+
+/**
+ * Hide the TTY cursor.
+ */
+export const hideCursor = () => {
+  if (process) {
+    process.stdout.write("\x1b[?25l");
+  }
+};
+
+/**
  * Clear stdout. `flush` determines whether to flush previous contents of
  * stdout.
  */
@@ -200,9 +218,11 @@ export const clear = ({
     return;
   }
 
+  hideCursor();
   stdout.cursorTo(0);
   stdout.moveCursor(0, -lines);
   stdout.clearScreenDown();
+  showCursor();
 
   // stdout.cursorTo(0);
 
