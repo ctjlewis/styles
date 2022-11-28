@@ -242,11 +242,11 @@ export const clear = ({
     return;
   }
 
-  hideCursor();
+  // hideCursor();
   stdout.cursorTo(0);
   stdout.moveCursor(0, -lines);
   stdout.clearScreenDown();
-  showCursor();
+  // showCursor();
 
   // stdout.cursorTo(0);
 
