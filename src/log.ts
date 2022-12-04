@@ -70,7 +70,7 @@ const logCall = (
    * Log preceding newlines.
    */
   for (let i = 0; i < preLines; i++) {
-    console.log();
+    logType();
   }
   /**
    * Log the raw string.
@@ -80,7 +80,7 @@ const logCall = (
    * Log following newlines.
    */
   for (let i = 0; i < postLines; i++) {
-    console.log();
+    logType();
   }
   /**
    * Close indentations.
