@@ -44,7 +44,7 @@ if (stdout?.isTTY) {
  * Force padding on process close.
  */
   if (!setFinalPaddingListener()) {
-    process.on("exit", addFinalPadding);
+    process?.on("exit", addFinalPadding);
     env[SET_FINAL_PADDING_LISTENER] = "true";
   }
 
