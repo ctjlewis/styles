@@ -30,7 +30,7 @@ if (stdout?.isTTY) {
     // log();
     group.end();
 
-    process.removeListener("exit", addFinalPadding);
+    process?.removeListener("exit", addFinalPadding);
   };
 
   /**
@@ -51,8 +51,8 @@ if (stdout?.isTTY) {
   /**
  * Ensures the process.exit() event fires, including on Windows.
  */
-  process.addListener("SIGINT", () => {
-    process.exit(1);
+  process?.addListener("SIGINT", () => {
+    process?.exit(1);
   });
 }
 
