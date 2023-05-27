@@ -10,7 +10,7 @@
 import { env, stdout } from "process";
 import { group, log } from "./log";
 
-if (stdout?.isTTY) {
+if (stdout?.isTTY && typeof process !== "undefined") {
   const ADDED_INITIAL_PADDING = "__ADDED_INITIAL_PADDING__";
   const SET_FINAL_PADDING_LISTENER = "__SET_FiNAL_PADDING_LISTENER__";
 
@@ -30,7 +30,7 @@ if (stdout?.isTTY) {
     // log();
     group.end();
 
-    process?.removeListener("exit", addFinalPadding);
+    process.removeListener("exit", addFinalPadding);
   };
 
   /**
@@ -44,15 +44,15 @@ if (stdout?.isTTY) {
  * Force padding on process close.
  */
   if (!setFinalPaddingListener()) {
-    process?.on("exit", addFinalPadding);
+    process.on("exit", addFinalPadding);
     env[SET_FINAL_PADDING_LISTENER] = "true";
   }
 
   /**
  * Ensures the process.exit() event fires, including on Windows.
  */
-  process?.addListener("SIGINT", () => {
-    process?.exit(1);
+  process.addListener("SIGINT", () => {
+    process.exit(1);
   });
 }
 
