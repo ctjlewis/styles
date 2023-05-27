@@ -20,23 +20,21 @@
   ],
   "scripts": {
     "dev": "tsmodule dev",
-    "build": "tsmodule build --standalone src/index.ts",
-    "test": "tsmodule test/index.test.ts",
-    "pretest": "yarn build",
-    "prepublishOnly": "yarn test",
+    "build": "tsmodule build",
+    "test": "pnpm build && tsmodule test/index.test.ts",
+    "prepublishOnly": "pnpm test",
     "lint": "eslint src --fix"
   },
   "devDependencies": {
-    "@tsmodule/tsmodule": "^41.23.0",
-    "@types/node": "^18.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.44.0",
-    "@typescript-eslint/parser": "^5.44.0",
+    "@tsmodule/tsmodule": "^44.7.0",
+    "@types/node": "^20.2.5",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.7",
     "ansi-styles": "^6.2.1",
-    "ava": "^5.1.0",
-    "eslint": "^8.28.0",
-    "typescript": "^4.9.3"
+    "ava": "^5.3.0",
+    "eslint": "^8.41.0",
+    "typescript": "^5.0.4"
   },
-  "dependencies": {},
   "platform": "node",
   "engines": {
     "node": ">=14"
