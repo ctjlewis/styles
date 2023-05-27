@@ -10,7 +10,7 @@
 import { env, stdout } from "process";
 import { group, log } from "./log";
 
-if (stdout && stdout?.isTTY) {
+if (stdout?.isTTY) {
   const ADDED_INITIAL_PADDING = "__ADDED_INITIAL_PADDING__";
   const SET_FINAL_PADDING_LISTENER = "__SET_FiNAL_PADDING_LISTENER__";
 

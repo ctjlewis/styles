@@ -1,1 +1,1 @@
-export const TTY = Boolean(process.stdout.isTTY);
+export const TTY = Boolean(process.stdout?.isTTY);
